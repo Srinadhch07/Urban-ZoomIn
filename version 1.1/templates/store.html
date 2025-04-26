@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta chatset="UTF-8">
+        <title>Urban ZoomIn</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <link rel="icon" href="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" type="image/png">
+
+        <!-- Open Graph Tags -->
+        <meta property="og:title" content="Urban ZoomIn" />
+        <meta property="og:description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+        <meta property="og:image" content="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" />
+        <meta property="og:url" content="{{ request.url }}" />
+        <meta property="og:type" content="website" />
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+        <meta name="keywords" content="Urban ZoomIn, shopping, services, time saver" />
+        <meta name="author" content="Srinadh Chintakindi" />
+        <meta name="robots" content="index, follow" />
+
+        <!-- PWA & Theme Meta -->
+        <meta name="theme-color" content="#ffffff">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="Urban ZoomIn">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-status-bar-style" content="default">
+        <meta name="mobile-web-app-title" content="Urban ZoomIn">
+
+        <script>
+            history.replaceState(null, '', window.location.href);
+        </script>
+        <style>
+            body {
+                /* font-family:, sans-serif, sans-serif; */
+                background-color: #F6F1DE;
+                margin: 0;
+                padding: 20px;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -o-user-select: none;
+                -khtml-user-select: none;
+                -webkit-touch-callout: none;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                -webkit-touch-callout: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                -ms-user-drag: none;
+
+            }
+            h1 {
+                color: #333;
+            }
+            .button-container {
+
+                margin-bottom: 20px;
+            }
+            .register-button {
+                background-color: #28a745;
+                color: white;
+                padding: 5px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                float: right;
+            }
+            .register-button:hover {
+                background-color: #218838;
+            }
+            .shop-container {
+                background-color: white;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                align-items: center;
+            }
+            .shop-container:hover {
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                transition: box-shadow 0.3s ease;
+            }
+            .shop-container button {
+                
+                background-color: #1F7D53;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                text-decoration: none;
+                align-self: center;
+                margin: auto;
+            }
+            .shop-container button:hover {
+                background-color: #90C67C;
+            }
+            .shop-container button:active {
+                background-color: #004085;
+            }
+            .shop-container button:focus {
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+            .shop-container button:focus-visible {
+                outline: 2px solid #007bff;
+            }
+            .shop-container button:focus-visible:hover {
+                outline: 2px solid #0056b3;
+            }
+            .shop-container h2 {
+                margin: 0;
+                color: #333;
+            }
+            .shop-container h3 {
+                margin: 5px 0;
+                color: black;
+            }
+            .shop-container h4 {
+                margin: 5px 0;
+                color: black;
+            }
+            .shop-container p {
+                margin: 5px 0;
+                color: black;
+            }
+            #status {
+                font-size: 20px;
+            }
+            #status span {
+                font-weight: bold;
+            }
+            form {
+                margin-bottom: 20px;
+            }
+            form label {
+                display: block;
+                margin-bottom: 10px;
+            }
+            form select,
+            form input[type="text"] {
+                width: 95%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+            form button {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            form button:hover {
+                background-color: #0056b3;
+            }
+            form .error-message {
+                color: red;
+                margin-top: 10px;
+            }
+            form .success-message {
+                color: green;
+                margin-top: 10px;
+            }
+            form .warning-message {
+                color: orange;
+                margin-top: 10px;
+            }
+            form .info-message {
+                color: blue;
+                margin-top: 10px;
+            }
+            form .info-message a {
+                color: blue;
+                text-decoration: none;
+            }
+            form .info-message a:hover {
+                text-decoration: underline;
+            }
+            form .info-message span {
+                font-weight: bold;
+            }
+            form .info-message span a {
+                color: blue;
+                text-decoration: none;
+            }
+            form .info-message span a:hover {
+                text-decoration: underline;
+            }
+            form .info-message span a:visited {
+                color: purple;
+            }
+            form .info-message span a:active {
+                color: red;
+            }
+            form .info-message span a:focus {
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+            form .info-message span a:focus-visible {
+                outline: 2px solid #007bff;
+            }
+            form .info-message span a:focus-visible:hover {
+                outline: 2px solid #0056b3;
+            }
+            form .info-message span a:focus-visible:active {
+                outline: 2px solid #0056b3;
+            }
+            form .info-message span a:focus-visible:visited {
+                outline: 2px solid #0056b3;
+            }
+            form .info-message span a:focus-visible:focus {
+                outline: 2px solid #0056b3;
+            }
+          footer{
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+                font-size: 14px;
+                color: #666;
+
+            }
+            footer a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            .register-button {
+                background-color: #28a745;
+                color: white;
+                padding: 5px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                float: left;
+            }
+            .register-button:hover {
+                background-color: #218838;
+            }
+
+            .header button {
+                background-color: #218838;
+                color: white;
+                padding: 10px 30px;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                text-decoration: none; 
+                margin-left:20px;
+            }
+            .header button:active {
+                background-color: #0056b3;
+            }
+            .header button:focus {
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+            .header button:focus-visible {
+                outline: 2px solid #007bff;
+            }
+            .header button:focus-visible:hover {
+                outline: 2px solid #0056b3;
+            }
+
+            </style>
+    </head>
+    <body>
+        <div class="header">
+
+            <p style="display: inline-block;"><strong><i>Welcome to</i></strong></p>
+            <img src="{{ url_for('static', filename='images/Urban_ZoomIn_Logo-removebg-preview.png') }}" alt="ZooMi Logo" style="width: 70px; height:70px;float:right">
+
+            <h1> {{ store[0]| upper }}</h1>
+            <p> Contact to make order:  <button onclick="window.location.href='tel:{{ store[4] }}'"> Call </button></p>
+        </div>
+
+        <p style ="color:red;">{{ error }}</p>
+        {% for item in food_items|reverse %}
+        <div class="shop-container">
+            <h2 style="color:#28a745">{{ item[0]| capitalize }}</h2>
+            <h3>Price: ₹{{ item[2] }}</h3>
+            <h4>Quantity: {{ item[1] }}</h4>
+            <h4>Food Status : {{ item[3]| capitalize }}</p>
+            <p>Last Updated : {{ item[4] }}</h4>
+            <button onclick="window.location.href='https://api.whatsapp.com/send/?phone=91{{ store[4] }}&text=Ordering in %2AUraban ZoomIn%2A %0AItem name : {{ item[0]|capitalize }}%0AQunatity : [Type here]'"> Order now</button>
+
+        </div>
+        {% endfor %}
+        <footer>
+            <hr>
+            <p>&copy; 2025 Urban ZoomIn. All rights reserved.</p>
+            <p>Developed by <a href="https://srinadhch07.github.io/PortfolioV3/k">SRINADH CHINTAKINDI</a></p>
+            <p>Contact: <a href="https://api.whatsapp.com/send/?phone=9346070083&text=Hi! I saw your Urban ZoomIn." style="color:#218838">Whatsapp</a></p>
+            <p>Follow me on <a href="https://www.linkedin.com/in/srinadh-chintakindi-887550232/" target="_blank">LinkedIn</a>, <a href="https://x.com/srinadhch07" target="_blank">Twitter</a>, and <a href="https://www.instagram.com/mr_srinadhch07/" target="_blank">Instagram</a>.</p>
+
+        </footer>
+
+    </body>
+</html>

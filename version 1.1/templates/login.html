@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png') }}" type="image/png">
+
+    <link rel="icon" href="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" type="image/png">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Urban ZoomIn" />
+    <meta property="og:description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+    <meta property="og:image" content="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" />
+    <meta property="og:url" content="{{ request.url }}" />
+    <meta property="og:type" content="website" />
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+    <meta name="keywords" content="Urban ZoomIn, shopping, services, time saver" />
+    <meta name="author" content="Srinadh Chintakindi" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- PWA & Theme Meta -->
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Urban ZoomIn">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-title" content="Urban ZoomIn">
+
+    <title>UZ | Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #57B4BA;
+            margin: 0;
+            padding: 20px;
+            user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -o-user-select: none;
+                -khtml-user-select: none;
+                -webkit-touch-callout: none;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                -webkit-touch-callout: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                -ms-user-drag: none;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: red;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            text-align: center;
+        }
+        .container p {
+            text-align: center;
+        }
+        .container p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .container p a:hover {
+            text-decoration: underline;
+        }
+        .container .error-message {
+            color: red;
+            margin-bottom: 20px;
+        }
+        .container label {
+            margin-bottom: 5px;
+        }
+        .container input[type="text"],
+        .container input[type="password"],
+        .container input[type="email"],
+        .container input[type="tel"],
+        .container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background-color: #0056b3;
+        }
+        .container p {
+            margin-top: 10px;
+        }
+        .container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='images/Urban_ZoomIn_Logo-removebg-preview.png') }}" alt="ZooMi Logo" style="width: 200px; height: 200px; float: center; margin: 0 auto; display: block;">
+        <h2>Login</h2>
+        <form action="{{ url_for('login') }}" method="POST">
+            <p style ="color:red">{{ error }}</p>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account ? <a href="{{ url_for('register') }}"> Register here</a></p>
+        <p>Admin ? <a href="{{ url_for('adminlogin') }}"> Login here</a></p>
+        <p>Note: For help, please contact admin at <a href="https://api.whatsapp.com/send/?phone=9346070083&text=%22Requesting%20%20changes%20in%20my%20store!%20%22" style="color:#218838">Whatsapp</a></p>
+
+    </div>
+
+</body>
+</html>

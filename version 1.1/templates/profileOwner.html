@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UZ | Store Profile</title>
+
+        <link rel="icon" href="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" type="image/png">
+
+        <!-- Open Graph Tags -->
+        <meta property="og:title" content="Urban ZoomIn" />
+        <meta property="og:description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+        <meta property="og:image" content="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" />
+        <meta property="og:url" content="{{ request.url }}" />
+        <meta property="og:type" content="website" />
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+        <meta name="keywords" content="Urban ZoomIn, shopping, services, time saver" />
+        <meta name="author" content="Srinadh Chintakindi" />
+        <meta name="robots" content="index, follow" />
+
+        <!-- PWA & Theme Meta -->
+        <meta name="theme-color" content="#ffffff">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="Urban ZoomIn">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-status-bar-style" content="default">
+        <meta name="mobile-web-app-title" content="Urban ZoomIn">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #98D8EF;
+                margin: 0;
+                padding: 20px;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -o-user-select: none;
+                -khtml-user-select: none;
+                -webkit-touch-callout: none;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                -webkit-touch-callout: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                -ms-user-drag: none;
+            }
+            h1 {
+                color: #333;
+            }
+            form{
+                margin-top: 30px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            label {
+                display: block;
+                margin-bottom: 10px;
+            }
+            select, input[type="number"],input[type="text"] {
+                width: 95%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+            button {
+                background-color: #28a745;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #218838;
+            }
+            a {
+                display: inline-block;
+                margin-top: 20px;
+                text-decoration: none;
+                color: #007bff;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+        <script>
+            function toggleTimeInput() {
+                var status = document.getElementById("status").value;
+                var timeBox = document.getElementById("timeInputBox");
+            
+                if (status === "busy") {
+                    timeBox.style.display = "block";  // Show input box
+                } else {
+                    timeBox.style.display = "none";  // Hide input box
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form method="POST" action="{{ url_for('profileOwner') }}">
+            <img src="{{ url_for('static', filename='images/Urban_ZoomIn_Logo-removebg-preview.png') }}" alt="ZooMi Logo" style="width: 200px; height: 200px; float: center; margin: 0 auto; display: block;">
+            <h1>Welcome, {{ username }}</h1>
+            <h1> {{ success }}</h1>
+            <label for="status">Update Shop Status:</label>
+            <input type="hidden" name="store_id" value="{{ store_id }}">
+            <select name="status" id="status" onchange="toggleTimeInput()">
+                <option value="open">Open</option>
+                <option value="closed">Closed</option>
+                <option value="available">Available</option>
+                <option value="busy">Busy</option>
+            </select>
+        
+            <!-- Hidden input for time -->
+            <div id="timeInputBox" style="display: none;">
+                <label for="busy_time">How many minutes will you be busy?</label>
+                <input type="number" name="busy_time" id="busy_time" min="1" placeholder="Enter minutes">
+            </div>
+        
+            <button type="submit">Update Status</button>
+        </form>
+        <!-- Food Section category -->
+        {% if store_category == "food" %}
+            <h3>Manage Food Items</h3>
+            <form action="{{ url_for('add_or_update_food') }}" method="POST">
+                <input type="hidden" name="store_id" value="{{ store_id }}">
+                
+                <input type="hidden" name="store_id" value="{{ store_id }}">
+                <input type="text" name="item_name" placeholder="Food Item"  required ><br>
+                <br>
+
+                <input type="number" name="quantity" placeholder="Quantity"><br>
+
+                <input type="number" step="0.01" name="price" placeholder="Price"required><br>
+
+                
+                <select name="status" aria-placeholder="Status" required>
+                    <option value="ready">Ready</option>
+                    <option value="preparing">Preparing</option>
+                    <option value="over for today">Over for Today</option>
+                </select><br><br>
+
+                <button type="submit">Add/Update Item</button>
+            </form>
+
+            <form method="POST" action="{{ url_for('delete_food_item') }}">
+                <label>Delete Food Item:</label>
+                <input type="hidden" name="store_id" value="{{ store_id }}">
+                <input type="text" name="item_name" placeholder="Food Item" required><br>
+                <button type="submit">Delete</button>
+            </form>  
+        {% endif %}
+
+        <!-- General Store category -->
+
+        {% if store_category == "general" %}
+        <h3>Manage Products</h3>
+        <form action="{{ url_for('add_or_update_product') }}" method="POST">
+            <input type="hidden" name="store_id" value="{{ store_id }}">
+            
+            <input type="hidden" name="store_id" value="{{ store_id }}">
+            <input type="text" name="item_name" placeholder="Product Name"  required ><br>
+            <br>
+
+            <!-- <input type="number" name="quantity" placeholder="Quantity"><br> -->
+
+            <input type="number" step="0.01" name="price" placeholder="Price"required><br>
+
+            
+            <select name="status" aria-placeholder="Status" required>
+                <option value="available">Available</option>
+                <option value="currently unavailable">Currently Unavailable</option>
+            </select><br><br>
+
+            <button type="submit">Add/Update Product</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('delete_product_item') }}">
+            <label>Delete Product:</label>
+            <input type="hidden" name="store_id" value="{{ store_id }}">
+            <input type="text" name="item_name" placeholder="Product Name" required><br>
+            <button type="submit">Delete</button>
+        </form>  
+        {% endif %}
+         
+
+        
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <p>If any changes are neccesary in your account. Please contact admin at <a href="https://api.whatsapp.com/send/?phone=9346070083&text=%22Requesting%20%20changes%20in%20my%20store!%20%22" style="color:#218838">Whatsapp</a></p>
+    </body>
+</html>
+
+
+
+
+

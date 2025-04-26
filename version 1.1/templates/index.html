@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta chatset="UTF-8">
+        <title>Urban ZoomIn</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <link rel="icon" href="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" type="image/png">
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+        <!-- Open Graph Tags -->
+        <meta property="og:title" content="Urban ZoomIn" />
+        <meta property="og:description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+        <meta property="og:image" content="{{ url_for('static', filename='images/Urban_ZoomIn_Logo.png', _external=True) }}" />
+        <meta property="og:url" content="{{ request.url }}" />
+        <meta property="og:type" content="website" />
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Welcome to Urban ZoomIn, your time saver for shopping and services." />
+        <meta name="keywords" content="Urban ZoomIn, shopping, services, time saver" />
+        <meta name="author" content="Srinadh Chintakindi" />
+        <meta name="robots" content="index, follow" />
+
+        <!-- PWA & Theme Meta -->
+        <meta name="theme-color" content="#ffffff">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="Urban ZoomIn">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-status-bar-style" content="default">
+        <meta name="mobile-web-app-title" content="Urban ZoomIn">
+
+        <script>
+            history.replaceState(null, '', window.location.href);
+        </script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/static/service-worker.js')
+                        .then(reg => console.log('Service Worker registered:', reg.scope))
+                        .catch(err => console.error('Service Worker registration failed:', err));
+                });
+            }
+        </script>
+        <style>
+            body {
+                /* font-family:, sans-serif, sans-serif; */
+                background-color: #F6F1DE;
+                margin: 0;
+                padding: 20px;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -o-user-select: none;
+                -khtml-user-select: none;
+                -webkit-touch-callout: none;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                -webkit-touch-callout: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                -ms-user-drag: none;
+
+            }
+            h1 {
+                color: #333;
+            }
+            .button-container {
+
+                margin-bottom: 20px;
+            }
+            .register-button {
+                background-color: #28a745;
+                color: white;
+                padding: 5px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                float: right;
+            }
+            .register-button:hover {
+                background-color: #218838;
+            }
+            .shop-container {
+                background-color: white;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .shop-container:hover {
+                transform: scale(1.02);
+                transition: transform 0.2s;
+                background-color: #f8f9fa;
+                border: 1px solid #007bff;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+            .shop-container button {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+            }
+            .shop-container button:hover {
+                background-color: #0056b3;
+            }
+            .shop-container h2 {
+                margin: 0;
+                color: #333;
+            }
+            .shop-container h3 {
+                margin: 5px 0;
+                color: black;
+            }
+            .shop-container h4 {
+                margin: 5px 0;
+                color: black;
+            }
+            .shop-container p {
+                margin: 5px 0;
+                color: black;
+            }
+            #status {
+                font-size: 20px;
+            }
+            #status span {
+                font-weight: bold;
+            }
+            form {
+                margin-bottom: 20px;
+            }
+            form label {
+                display: block;
+                margin-bottom: 10px;
+            }
+            form select,
+            form input[type="text"] {
+                width: 95%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+            form button {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            form button:hover {
+                background-color: #0056b3;
+            }
+            form .error-message {
+                color: red;
+                margin-top: 10px;
+            }
+            form .success-message {
+                color: green;
+                margin-top: 10px;
+            }
+            form .warning-message {
+                color: orange;
+                margin-top: 10px;
+            }
+            form .info-message {
+                color: blue;
+                margin-top: 10px;
+            }
+            form .info-message a {
+                color: blue;
+                text-decoration: none;
+            }
+            form .info-message a:hover {
+                text-decoration: underline;
+            }
+            form .info-message span {
+                font-weight: bold;
+            }
+            form .info-message span a {
+                color: blue;
+                text-decoration: none;
+            }
+            form .info-message span a:hover {
+                text-decoration: underline;
+            }
+            form .info-message span a:visited {
+                color: purple;
+            }
+            form .info-message span a:active {
+                color: red;
+            }
+            form .info-message span a:focus {
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+            form .info-message span a:focus-visible {
+                outline: 2px solid #007bff;
+            }
+            form .info-message span a:focus-visible:hover {
+                outline: 2px solid #0056b3;
+            }
+            form .info-message span a:focus-visible:active {
+                outline: 2px solid #0056b3;
+            }
+            form .info-message span a:focus-visible:visited {
+                outline: 2px solid #0056b3;
+            }
+            form .info-message span a:focus-visible:focus {
+                outline: 2px solid #0056b3;
+            }
+          footer{
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+                font-size: 14px;
+                color: #666;
+
+            }
+            footer a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            #customAlert {
+                    display: none;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 250px;
+                    padding: 20px;
+                    background-color: white;
+                    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+                    border-radius: 10px;
+                    z-index: 9999;
+                    font-family: sans-serif;
+                    }
+                    #overlay {
+                    display: none;
+                    position: fixed;
+                    top: 0; left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.4);
+                    z-index: 9998;
+                    }
+                    #customAlert button {
+                    margin-top: 15px;
+                    padding: 8px 16px;
+                    border: none;
+                    background-color: #007bff;
+                    color: white;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    }
+            </style>
+    </head>
+    <body>
+
+        <!-- Alert Box -->
+        <div id="overlay"></div>
+
+        <div id="customAlert">
+          <p>Welcome to <strong>Urban ZoomIn</strong>, your time saver for all your needs.<br><br>
+          Please note that this is a Beta version.<br><br>
+          For any queries or feedback, please contact us at:<br><br>
+          Email: srinadhc07@gmail.com<br>
+          Phone: +91 9346070083<br><br>
+          Thank you for your understanding and support!</p>
+          <button onclick="closeAlert()">OK</button>
+        </div>
+        
+    
+        <div class="">
+            <a href="{{ url_for('login') }}" class="register-button" >login</a>
+            <img src="{{ url_for('static', filename='images/Urban_ZoomIn_Logo-removebg-preview.png') }}" alt="ZooMi Logo" style="width: 300px; height: 300px; margin-right: 20px;">
+            <h1 >Welcome to <br><strong><i>Urban ZoomIn</i></strong></h1>
+            <p><i><B>Your Time saver</B></i></h2>
+        </div>
+
+
+
+        <div>
+        <form method="POST" action="{{ url_for('category') }}">
+            <label for="category">Select Category:</label>
+            <select name="category" id="category">
+                <option value="all">All</option>
+                <option value="shopping">Shopping</option>
+                <option value="food">Food</option>
+                <option value="general">General</option>
+                <option value="personal care">Personal Care</option>
+                <option value="education">Education</option>
+                <option value="health">Health</option>
+                <option value="technology">Technology</option>
+                <option value="other">Other</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('search') }}">
+            <label for="search">Search by Name:</label>
+            <input type="text" id="search" name="search" placeholder="Enter shop name">
+            <button type="submit">Search</button>
+        </form>
+
+        </div>
+
+        <h2>{{ error }}</h2>
+        {% for shop in shops %}
+
+        <a href="{{ url_for('store_page', store_id=shop[6]) }}" style="text-decoration: none; color: inherit;">
+        <div class="shop-container">
+
+                <h2><i><b>{{ shop[0]|upper }}</b></i></h2>
+                <h3>Status: <span style="color:#077c23">{{ shop[2]|upper }}</span></h3>
+                <h4> Contact :  <a href="tel:{{ shop[4] }}">+91 {{ shop[4] }}</a></h4>
+                <h4>Address : </Address>{{ shop[1]|capitalize }}</h4>
+                <h4>Last Updated : {{ shop[7]|capitalize }}</h4>
+                <p>Category : {{ shop[5]|capitalize }}</p>
+                {% if shop[2] == "busy" %}
+                    <h4 id="status">We value your time, come to us after <span style="color:blue;font-size: 20px;">{{ shop[3]|capitalize }} minutes.</span> </h4>
+                {% elif shop[2] == "open" %}
+                    <h4 id="status">We are happy to say, our store is <span style="color:green;font-size: 20px;">Opened</span></h4>
+                {% elif shop[2] == "closed" %}
+                    <h4 id="status">Excuse us, our store is <span style="color:red;font-size: 20px;">Closed</span></h4>
+                {% elif shop[2] == "available" %}
+                    <h4 id="status">We are <span style="color:#22a420;font-size: 20px;">Available</span></h4>
+                {% endif %}
+                
+                <button onclick="window.location.href='{{ url_for('store_page', store_id=shop[6]) }}'">Visit Store</button>
+        </div>
+        </a>
+        {% endfor %}
+
+        <footer>
+            <hr>
+            <p>&copy; 2025 Urban ZoomIn. All rights reserved.</p>
+            <p>Developed by <a href="https://srinadhch07.github.io/PortfolioV3/">SRINADH CHINTAKINDI</a></p>
+            <p>Contact: <a href="https://api.whatsapp.com/send/?phone=9346070083&text=Hi! I saw your Urban ZoomIn." style="color:#218838">Whatsapp</a></p>
+            <p>Follow me on <a href="https://www.linkedin.com/in/srinadh-chintakindi-887550232/" target="_blank">LinkedIn</a>, <a href="https://x.com/srinadhch07" target="_blank">Twitter</a>, and <a href="https://www.instagram.com/mr_srinadhch07/" target="_blank">Instagram</a>.</p>
+
+        </footer>
+
+    </body>
+    <script>
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.createElement('button');
+            installBtn.textContent = 'Install Urban ZoomIn';
+            installBtn.style = 'position: fixed; bottom: 20px; left: 20px; padding: 10px; background-color: #001A6E; color: white; border: none; border-radius: 5px; cursor: pointer;';
+            installBtn.onclick = () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(choice => {
+                    if (choice.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    installBtn.remove();
+                });
+            };
+            document.body.appendChild(installBtn);
+        });
+    </script>
+    <script>
+        function showCustomAlert() {
+          document.getElementById("customAlert").style.display = "block";
+          document.getElementById("overlay").style.display = "block";
+        }
+      
+        function closeAlert() {
+          document.getElementById("customAlert").style.display = "none";
+          document.getElementById("overlay").style.display = "none";
+        }
+      
+        window.onload = showCustomAlert;
+      </script>      
+</html>
